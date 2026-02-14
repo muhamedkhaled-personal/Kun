@@ -1,29 +1,40 @@
-import { auth } from "@/lib/auth/auth";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export const middleware = auth(async (req) => {
+export function middleware(req: NextRequest) {
   // Redirect root to /en
   if (req.nextUrl.pathname === "/") {
-    return Response.redirect(new URL("/en", req.nextUrl.origin));
+    return NextResponse.redirect(new URL("/en", req.nextUrl.origin));
   }
 
-  const isLoggedIn = !!req.auth;
-  const isProtectedRoute = [
+  const protectedRoutes = [
     "/dashboard",
     "/admin",
     "/settings",
     "/billing",
     "/discovery",
     "/strategy",
-  ].some((route) => req.nextUrl.pathname.startsWith(route));
+  ];
 
-  if (isProtectedRoute && !isLoggedIn) {
-    const loginUrl = new URL("/login", req.nextUrl.origin);
-    loginUrl.searchParams.set("callbackUrl", req.nextUrl.pathname);
-    return Response.redirect(loginUrl);
+  const isProtectedRoute = protectedRoutes.some((route) =>
+    req.nextUrl.pathname.startsWith(route)
+  );
+
+  if (isProtectedRoute) {
+    // Check for NextAuth session token (JWT strategy)
+    const token =
+      req.cookies.get("__Secure-next-auth.session-token")?.value ||
+      req.cookies.get("next-auth.session-token")?.value;
+
+    if (!token) {
+      const loginUrl = new URL("/login", req.nextUrl.origin);
+      loginUrl.searchParams.set("callbackUrl", req.nextUrl.pathname);
+      return NextResponse.redirect(loginUrl);
+    }
   }
 
-  return undefined;
-});
+  return NextResponse.next();
+}
 
 export const config = {
   matcher: [
