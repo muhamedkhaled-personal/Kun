@@ -129,7 +129,7 @@ export default async function StrategyPage() {
               Content Pillars
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {strategy.contentPillars.map((pillar, idx) => (
+              {strategy.contentPillars.map((pillar: string, idx: number) => (
                 <Card key={idx} className="p-4 border-l-4 border-l-amber-600">
                   <p className="text-sm text-slate-600 font-medium mb-1">
                     Pillar {idx + 1}
@@ -170,7 +170,7 @@ export default async function StrategyPage() {
                     Secondary Platforms
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {strategy.secondaryPlatforms.map((platform, idx) => (
+                    {strategy.secondaryPlatforms.map((platform: string, idx: number) => (
                       <Badge key={idx} variant="secondary">
                         {platform}
                       </Badge>
@@ -188,7 +188,7 @@ export default async function StrategyPage() {
               Content Mix
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {Object.entries(strategy.contentMix).map(([type, percentage]) => (
+              {Object.entries(strategy.contentMix).map(([type, percentage]: [string, any]) => (
                 <div key={type} className="text-center">
                   <div className="mb-2 h-24 bg-slate-100 rounded-lg flex items-center justify-center relative overflow-hidden">
                     <div
@@ -226,7 +226,7 @@ export default async function StrategyPage() {
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {Array.isArray(strategy.voiceGuide.tone) ? (
-                      strategy.voiceGuide.tone.map((tone, idx) => (
+                      strategy.voiceGuide.tone.map((tone: string, idx: number) => (
                         <Badge key={idx} variant="secondary">
                           {tone}
                         </Badge>
@@ -244,7 +244,7 @@ export default async function StrategyPage() {
                   <p className="text-sm font-medium text-slate-600 mb-3">Dos</p>
                   <ul className="space-y-2">
                     {Array.isArray(strategy.voiceGuide.dos) ? (
-                      strategy.voiceGuide.dos.map((dos, idx) => (
+                      strategy.voiceGuide.dos.map((dos: string, idx: number) => (
                         <li key={idx} className="text-sm text-slate-700 flex gap-2">
                           <span className="text-green-600 font-bold">✓</span>
                           <span>{dos}</span>
@@ -265,7 +265,7 @@ export default async function StrategyPage() {
                   </p>
                   <ul className="space-y-2">
                     {Array.isArray(strategy.voiceGuide.donts) ? (
-                      strategy.voiceGuide.donts.map((dont, idx) => (
+                      strategy.voiceGuide.donts.map((dont: string, idx: number) => (
                         <li key={idx} className="text-sm text-slate-700 flex gap-2">
                           <span className="text-red-600 font-bold">✕</span>
                           <span>{dont}</span>
@@ -289,7 +289,7 @@ export default async function StrategyPage() {
               Posting Cadence
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {Object.entries(strategy.postingCadence).map(([platform, frequency]) => (
+              {Object.entries(strategy.postingCadence).map(([platform, frequency]: [string, any]) => (
                 <div
                   key={platform}
                   className="p-4 bg-slate-50 rounded-lg border border-slate-200"
@@ -325,7 +325,7 @@ export default async function StrategyPage() {
               {strategy.monthlyPlan?.month1 && (
                 <div className="space-y-3">
                   {Array.isArray(strategy.monthlyPlan.month1) ? (
-                    strategy.monthlyPlan.month1.map((item, idx) => (
+                    strategy.monthlyPlan.month1.map((item: string, idx: number) => (
                       <div key={idx} className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
                         <p className="text-slate-900">{item}</p>
                       </div>
@@ -344,7 +344,7 @@ export default async function StrategyPage() {
               {strategy.monthlyPlan?.month2 && (
                 <div className="space-y-3">
                   {Array.isArray(strategy.monthlyPlan.month2) ? (
-                    strategy.monthlyPlan.month2.map((item, idx) => (
+                    strategy.monthlyPlan.month2.map((item: string, idx: number) => (
                       <div key={idx} className="p-4 bg-green-50 border border-green-200 rounded-lg">
                         <p className="text-slate-900">{item}</p>
                       </div>
@@ -363,7 +363,7 @@ export default async function StrategyPage() {
               {strategy.monthlyPlan?.month3 && (
                 <div className="space-y-3">
                   {Array.isArray(strategy.monthlyPlan.month3) ? (
-                    strategy.monthlyPlan.month3.map((item, idx) => (
+                    strategy.monthlyPlan.month3.map((item: string, idx: number) => (
                       <div key={idx} className="p-4 bg-purple-50 border border-purple-200 rounded-lg">
                         <p className="text-slate-900">{item}</p>
                       </div>
@@ -386,7 +386,7 @@ export default async function StrategyPage() {
               First 5 Posts to Publish
             </h2>
             <div className="space-y-4">
-              {strategy.firstPosts.slice(0, 5).map((post, idx) => (
+              {strategy.firstPosts.slice(0, 5).map((post: any, idx: number) => (
                 <Card
                   key={idx}
                   className="p-5 border-l-4 border-l-amber-600 bg-slate-50"
