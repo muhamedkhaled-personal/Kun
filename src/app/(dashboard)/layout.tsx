@@ -3,6 +3,8 @@
 // Has a sidebar on the left and main content area on the right.
 // Protected — redirects to login if not authenticated.
 
+export const dynamic = "force-dynamic";
+
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth/auth";
 import { DashboardSidebar } from "@/components/dashboard/sidebar";

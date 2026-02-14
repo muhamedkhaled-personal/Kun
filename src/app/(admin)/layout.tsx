@@ -2,6 +2,8 @@
 // Layout for admin pages. Protected — requires admin role.
 // Similar to dashboard layout but with admin-specific sidebar.
 
+export const dynamic = "force-dynamic";
+
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth/auth";
 import { AdminSidebar } from "@/components/admin/sidebar";
