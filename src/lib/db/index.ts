@@ -11,7 +11,7 @@ import * as schema from "./schema";
 
 let _db: NeonHttpDatabase<typeof schema> | null = null;
 
-function getDb(): NeonHttpDatabase<typeof schema> {
+export function getDb(): NeonHttpDatabase<typeof schema> {
   if (!_db) {
     const url = process.env.DATABASE_URL;
     if (!url) {
@@ -23,6 +23,8 @@ function getDb(): NeonHttpDatabase<typeof schema> {
   return _db;
 }
 
+// Proxy so existing `db.select()...` call-sites keep working.
+// For code that needs the real Drizzle instance (like DrizzleAdapter), use getDb().
 export const db = new Proxy({} as NeonHttpDatabase<typeof schema>, {
   get(_target, prop) {
     return (getDb() as any)[prop];
