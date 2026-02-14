@@ -93,7 +93,19 @@ export default function DiscoveryPage() {
   const handleSubmit = async () => {
     setIsLoading(true);
     try {
-      const result = await completeDiscovery(formData);
+      // 1. Create a discovery session
+      const sessionResult = await createDiscoverySession();
+      if (!sessionResult.success || !sessionResult.data) {
+        console.error("Failed to create session:", sessionResult.error);
+        return;
+      }
+      const sessionId = sessionResult.data.sessionId;
+
+      // 2. Save answers to the session
+      await updateDiscoveryAnswers(sessionId, formData as unknown as Record<string, unknown>, 7);
+
+      // 3. Complete discovery and generate strategy
+      const result = await completeDiscovery(sessionId);
       if (result.success) {
         router.push("/strategy");
       }
