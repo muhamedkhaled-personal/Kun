@@ -1,8 +1,10 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
+import { eq } from "drizzle-orm";
 import { auth } from "@/lib/auth/auth";
 import { db } from "@/lib/db";
+import { subscriptions } from "@/lib/db/schema";
 import { PageHeader } from "@/components/shared/page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,16 +13,17 @@ import { createBillingPortalSession } from "@/actions/billing";
 
 async function getUserSubscription(userId: string) {
   try {
-    const user = await db.user.findUnique({
-      where: { id: userId },
-      select: {
-        plan: true,
-        stripeSubscriptionId: true,
-        stripePriceId: true,
-      },
-    });
+    const rows = await db
+      .select({
+        plan: subscriptions.plan,
+        stripeSubscriptionId: subscriptions.stripeSubscriptionId,
+        stripePriceId: subscriptions.stripePriceId,
+      })
+      .from(subscriptions)
+      .where(eq(subscriptions.userId, userId))
+      .limit(1);
 
-    return user || { plan: "free", stripeSubscriptionId: null };
+    return rows[0] || { plan: "free", stripeSubscriptionId: null };
   } catch (error) {
     console.error("Failed to fetch subscription:", error);
     return { plan: "free", stripeSubscriptionId: null };

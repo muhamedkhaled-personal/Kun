@@ -1,26 +1,49 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { eq, desc } from "drizzle-orm";
 import { auth } from "@/lib/auth/auth";
 import { PageHeader } from "@/components/shared/page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { db } from "@/lib/db";
+import { strategyResults, discoverySessions, contentPillars } from "@/lib/db/schema";
 
 async function getStrategyData(userId: string) {
   try {
-    const strategy = await db.strategy.findFirst({
-      where: { userId },
-      orderBy: { updatedAt: "desc" },
-    });
+    const [strategyRow] = await db
+      .select()
+      .from(strategyResults)
+      .where(eq(strategyResults.userId, userId))
+      .orderBy(desc(strategyResults.updatedAt))
+      .limit(1);
 
-    const discovery = await db.discovery.findFirst({
-      where: { userId },
-      orderBy: { createdAt: "desc" },
-    });
+    const [discoveryRow] = await db
+      .select()
+      .from(discoverySessions)
+      .where(eq(discoverySessions.userId, userId))
+      .orderBy(desc(discoverySessions.createdAt))
+      .limit(1);
 
-    return { strategy, discovery };
+    const pillars = strategyRow
+      ? await db
+          .select()
+          .from(contentPillars)
+          .where(eq(contentPillars.strategyId, strategyRow.id))
+      : [];
+
+    // Map to shape expected by the template
+    const strategy = strategyRow
+      ? {
+          ...strategyRow,
+          positioningStatement: strategyRow.positioning,
+          contentPillars: pillars.map((p) => p.name),
+          primaryPlatform: strategyRow.platformStrategy?.primary ?? null,
+        }
+      : null;
+
+    return { strategy, discovery: discoveryRow ?? null };
   } catch (error) {
     console.error("Failed to fetch strategy data:", error);
     return { strategy: null, discovery: null };

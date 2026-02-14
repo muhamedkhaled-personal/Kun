@@ -10,8 +10,10 @@ import {
   Clock,
   Zap,
 } from "lucide-react";
+import { eq, desc } from "drizzle-orm";
 import { auth } from "@/lib/auth/auth";
 import { db } from "@/lib/db";
+import { strategyResults, contentPillars } from "@/lib/db/schema";
 import { PageHeader } from "@/components/shared/page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -20,14 +22,45 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 async function getStrategy(userId: string) {
   try {
-    const strategy = await db.strategy.findFirst({
-      where: { userId },
-      orderBy: { updatedAt: "desc" },
-    });
+    const [row] = await db
+      .select()
+      .from(strategyResults)
+      .where(eq(strategyResults.userId, userId))
+      .orderBy(desc(strategyResults.updatedAt))
+      .limit(1);
 
-    if (!strategy) {
-      return null;
-    }
+    if (!row) return null;
+
+    const pillars = await db
+      .select()
+      .from(contentPillars)
+      .where(eq(contentPillars.strategyId, row.id));
+
+    // Map to shape expected by the template
+    const strategy: Record<string, unknown> = {
+      ...row,
+      positioningStatement: row.positioning,
+      contentPillars: pillars.map((p) => p.name),
+      primaryPlatform: row.platformStrategy?.primary ?? null,
+      secondaryPlatforms: row.platformStrategy?.secondary
+        ? [row.platformStrategy.secondary]
+        : [],
+      postingCadence: row.cadence
+        ? {
+            [`${row.cadence.postsPerWeek} posts/week`]:
+              row.cadence.bestDays?.join(", ") ?? "",
+          }
+        : null,
+      monthlyPlan: row.ninetyDayPlan,
+      firstPosts: row.firstFivePosts,
+      voiceGuide: row.voiceGuide
+        ? {
+            tone: row.voiceGuide.tone,
+            dos: row.voiceGuide.doList,
+            donts: row.voiceGuide.dontList,
+          }
+        : null,
+    };
 
     return strategy;
   } catch (error) {
