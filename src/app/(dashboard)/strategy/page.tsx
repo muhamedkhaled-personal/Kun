@@ -37,7 +37,8 @@ async function getStrategy(userId: string) {
       .where(eq(contentPillars.strategyId, row.id));
 
     // Map to shape expected by the template
-    const strategy: Record<string, unknown> = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const strategy: Record<string, any> = {
       ...row,
       positioningStatement: row.positioning,
       contentPillars: pillars.map((p) => p.name),
