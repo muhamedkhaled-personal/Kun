@@ -115,7 +115,16 @@ export default async function BillingPage() {
           </p>
 
           {subscription.plan !== "free" && (
-            <form action={createBillingPortalSession}>
+            <form
+              action={async () => {
+                "use server";
+                const result = await createBillingPortalSession();
+                if (result.success && result.data?.url) {
+                  const { redirect } = await import("next/navigation");
+                  redirect(result.data.url);
+                }
+              }}
+            >
               <Button type="submit" variant="outline" className="gap-2">
                 Manage Subscription
                 <ArrowRight className="w-4 h-4" />
