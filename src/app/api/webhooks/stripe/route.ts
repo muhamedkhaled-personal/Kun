@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import stripe from "@/lib/stripe";
 import { db } from "@/lib/db";
-import { subscriptions, users } from "@/lib/db/schema";
+import { subscriptions } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { getPlanByPriceId } from "@/lib/stripe/config";
 
@@ -98,19 +98,19 @@ async function handleCheckoutSessionCompleted(
   // Determine the plan tier
   const planTier = getPlanByPriceId(priceId) || "free";
 
-  // Find user by stripe_customer_id
-  const userResult = await db
-    .select()
-    .from(users)
-    .where(eq(users.stripeCustomerId, customerId))
+  // Find user by stripe_customer_id in subscriptions table
+  const subResult = await db
+    .select({ userId: subscriptions.userId })
+    .from(subscriptions)
+    .where(eq(subscriptions.stripeCustomerId, customerId))
     .limit(1);
 
-  if (userResult.length === 0) {
-    console.error(`User not found for customer ${customerId}`);
+  if (subResult.length === 0) {
+    console.error(`No subscription found for customer ${customerId}`);
     return;
   }
 
-  const userId = userResult[0].id;
+  const userId = subResult[0].userId;
 
   // Create or update subscription record
   await db
