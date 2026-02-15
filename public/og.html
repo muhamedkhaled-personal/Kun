@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1200px;
+      height: 630px;
+      background: #0D0D0D;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background glow */
+    .glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(212, 168, 67, 0.08) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Subtle grid pattern */
+    .grid-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(212, 168, 67, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212, 168, 67, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* Gold accent line at top */
+    .top-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, #D4A843, transparent);
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 80px;
+    }
+
+    /* Logo mark */
+    .logo {
+      font-size: 48px;
+      font-weight: 800;
+      color: #D4A843;
+      margin-bottom: 32px;
+      letter-spacing: 0.05em;
+    }
+
+    .logo span {
+      color: white;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: block;
+      margin-top: 8px;
+    }
+
+    h1 {
+      font-size: 56px;
+      font-weight: 800;
+      color: white;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    h1 .gold {
+      color: #D4A843;
+    }
+
+    .subtitle {
+      font-size: 22px;
+      color: #9CA3AF;
+      font-weight: 400;
+      margin-bottom: 40px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      border: 1px solid rgba(212, 168, 67, 0.3);
+      border-radius: 100px;
+      background: rgba(212, 168, 67, 0.05);
+    }
+
+    .badge .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #D4A843;
+    }
+
+    .badge span {
+      font-size: 14px;
+      color: #D4A843;
+      font-weight: 500;
+    }
+
+    /* Bottom URL */
+    .url {
+      position: absolute;
+      bottom: 32px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 16px;
+      color: rgba(212, 168, 67, 0.5);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="grid-pattern"></div>
+  <div class="top-line"></div>
+
+  <div class="content">
+    <div class="logo">
+      كُن
+      <span>K U N</span>
+    </div>
+    <h1>Don't just exist online.<br><span class="gold">Make an impact.</span></h1>
+    <p class="subtitle">AI-powered personal brand strategy for professionals</p>
+    <div class="badge">
+      <div class="dot"></div>
+      <span>Early Access — Join the Waitlist</span>
+    </div>
+  </div>
+
+  <div class="url">kunai.vercel.app</div>
+</body>
+</html>

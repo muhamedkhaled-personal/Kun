@@ -46,12 +46,21 @@ export const metadata: Metadata = {
     title: "كُن — علامتك الشخصية، بإستراتيجية الذكاء الاصطناعي",
     description:
       "منصة بناء استراتيجية العلامة الشخصية بالذكاء الاصطناعي للمحترفين في منطقة الشرق الأوسط وشمال أفريقيا.",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Kun — AI-powered personal brand strategy",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "كُن — علامتك الشخصية، بإستراتيجية الذكاء الاصطناعي",
     description:
       "منصة بناء استراتيجية العلامة الشخصية بالذكاء الاصطناعي للمحترفين في منطقة الشرق الأوسط وشمال أفريقيا.",
+    images: ["/og.png"],
   },
 };
 
