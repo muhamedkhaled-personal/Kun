@@ -2,7 +2,7 @@ import type { MarketingDictionary } from "./types";
 
 export const locales = ["en", "ar"] as const;
 export type Locale = (typeof locales)[number];
-export const defaultLocale: Locale = "en";
+export const defaultLocale: Locale = "ar";
 
 const dictionaries: Record<Locale, () => Promise<MarketingDictionary>> = {
   en: () => import("./locales/en").then((m) => m.default),

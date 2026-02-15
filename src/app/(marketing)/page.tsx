@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
 export default function MarketingRoot() {
-  redirect("/en");
+  redirect("/ar");
 }

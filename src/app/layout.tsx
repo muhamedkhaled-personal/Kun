@@ -22,34 +22,36 @@ const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
 
 export const metadata: Metadata = {
   title: {
-    default: "Kun — Your Personal Brand, Strategized by AI",
-    template: "%s | Kun",
+    default: "كُن — علامتك الشخصية، بإستراتيجية الذكاء الاصطناعي",
+    template: "%s | كُن",
   },
   description:
-    "AI-powered personal brand strategy builder for MENA professionals. Uncover your unique voice, unlock your content strategy, and unleash your professional presence.",
+    "منصة بناء استراتيجية العلامة الشخصية بالذكاء الاصطناعي للمحترفين في منطقة الشرق الأوسط وشمال أفريقيا.",
   keywords: [
+    "علامة شخصية",
+    "استراتيجية الذكاء الاصطناعي",
+    "محترفي الشرق الأوسط",
+    "استراتيجية المحتوى",
+    "LinkedIn",
     "personal branding",
     "AI strategy",
     "MENA professionals",
-    "content strategy",
-    "LinkedIn",
-    "thought leadership",
   ],
   authors: [{ name: "Kun" }],
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "ar_SA",
     url: process.env.NEXT_PUBLIC_APP_URL,
-    siteName: "Kun",
-    title: "Kun — Your Personal Brand, Strategized by AI",
+    siteName: "كُن",
+    title: "كُن — علامتك الشخصية، بإستراتيجية الذكاء الاصطناعي",
     description:
-      "AI-powered personal brand strategy builder for MENA professionals.",
+      "منصة بناء استراتيجية العلامة الشخصية بالذكاء الاصطناعي للمحترفين في منطقة الشرق الأوسط وشمال أفريقيا.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kun — Your Personal Brand, Strategized by AI",
+    title: "كُن — علامتك الشخصية، بإستراتيجية الذكاء الاصطناعي",
     description:
-      "AI-powered personal brand strategy builder for MENA professionals.",
+      "منصة بناء استراتيجية العلامة الشخصية بالذكاء الاصطناعي للمحترفين في منطقة الشرق الأوسط وشمال أفريقيا.",
   },
 };
 
@@ -59,7 +61,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning style={{ scrollPaddingTop: "80px" }}>
+    <html lang="ar" dir="rtl" className="dark scroll-smooth" suppressHydrationWarning style={{ scrollPaddingTop: "80px" }}>
       <body className={`${inter.variable} ${ibmPlexSansArabic.variable} font-sans antialiased`}>
         <AuthProvider>
           {children}

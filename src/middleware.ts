@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(req: NextRequest) {
-  // Redirect root to /en
+  // Redirect root to /ar (Arabic is the default language)
   if (req.nextUrl.pathname === "/") {
-    return NextResponse.redirect(new URL("/en", req.nextUrl.origin));
+    return NextResponse.redirect(new URL("/ar", req.nextUrl.origin));
   }
 
   const protectedRoutes = [
