@@ -13,16 +13,34 @@ export interface MarketingDictionary {
     title: string;
     titleHighlight: string;
     subtitle: string;
-    description: string;
     ctaPrimary: string;
     ctaSecondary: string;
-    tagline: string;
+    microProof: string;
+    strategyLabel: string;
+    strategyPowered: string;
+    strategyItems: { icon: string; label: string }[];
   };
   problem: {
     title: string;
+    pains: string[];
+    bridge: string;
+    bridgeHighlight1: string;
+    bridgeAnd: string;
+    bridgeHighlight2: string;
+  };
+  differentiator: {
+    title: string;
     titleHighlight: string;
     subtitle: string;
-    stats: { stat: string; label: string }[];
+    trapTitle: string;
+    trapItems: string[];
+    kunTitle: string;
+    kunItems: string[];
+    bottom: string;
+    bottomHighlight1: string;
+    bottomMid: string;
+    bottomHighlight2: string;
+    bottomEnd: string;
   };
   features: {
     title: string;
@@ -34,10 +52,8 @@ export interface MarketingDictionary {
     subtitle: string;
     steps: {
       step: string;
-      phase: string;
       title: string;
       description: string;
-      details: string[];
     }[];
     arrows: string[];
   };
@@ -47,22 +63,28 @@ export interface MarketingDictionary {
     monthly: string;
     yearly: string;
     saveAnnual: string;
-    savingsTemplate: string;
-    free: string;
     perMonth: string;
     perYear: string;
-    mostPopular: string;
     notSure: string;
     seeFaq: string;
-    plans: {
+    freePlan: {
       name: string;
       description: string;
-      monthlyPrice: number;
-      yearlyPrice: number;
-      features: string[];
+      priceNote: string;
       cta: string;
-      highlighted?: boolean;
-    }[];
+      sectionLabel: string;
+      features: { text: string; included: boolean }[];
+    };
+    proPlan: {
+      name: string;
+      description: string;
+      badge: string;
+      cta: string;
+      sectionLabel: string;
+      monthlyNote: string;
+      yearlyNote: string;
+      features: string[];
+    };
   };
   testimonials: {
     title: string;

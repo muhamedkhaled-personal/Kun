@@ -1,34 +1,23 @@
 "use client";
 
-import { useRef } from "react";
 import { useState } from "react";
-import { Check } from "lucide-react";
-import { motion, useInView } from "framer-motion";
+import Link from "next/link";
+import { Check, X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import type { MarketingDictionary } from "@/i18n/types";
 
 export function PricingSection({ dict }: { dict: MarketingDictionary }) {
   const [isYearly, setIsYearly] = useState(false);
-  const gridRef = useRef(null);
-  const isGridInView = useInView(gridRef, { once: true, margin: "-60px" });
 
-  const getPrice = (plan: MarketingDictionary["pricing"]["plans"][number]) => {
-    if (plan.monthlyPrice === 0) return dict.pricing.free;
-    return isYearly ? `$${plan.yearlyPrice}` : `$${plan.monthlyPrice}`;
-  };
-
-  const getSavings = (plan: MarketingDictionary["pricing"]["plans"][number]) => {
-    if (plan.monthlyPrice === 0) return null;
-    const savings = Math.round((plan.monthlyPrice * 12 - plan.yearlyPrice) / 12);
-    return savings > 0 ? savings : null;
-  };
+  const proPrice = isYearly ? 180 : 19;
+  const period = isYearly ? dict.pricing.perYear : dict.pricing.perMonth;
+  const monthlySavings = isYearly ? 4 : null;
 
   return (
     <section className="py-16 md:py-24 bg-[#0D0D0D]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
@@ -71,93 +60,110 @@ export function PricingSection({ dict }: { dict: MarketingDictionary }) {
         </div>
 
         {/* Pricing Cards */}
-        <div ref={gridRef} className="grid md:grid-cols-3 gap-8 mb-12">
-          {dict.pricing.plans.map((plan, idx) => (
-            <motion.div
-              key={plan.name}
-              initial={{ opacity: 0, y: 40 }}
-              animate={
-                isGridInView
-                  ? { opacity: 1, y: 0 }
-                  : { opacity: 0, y: 40 }
-              }
-              transition={{
-                duration: 0.5,
-                delay: idx * 0.15,
-                ease: [0.25, 0.1, 0.25, 1],
-              }}
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12">
+
+          {/* FREE */}
+          <Card className="relative flex flex-col p-8 rounded-xl border-[#D4A843]/20 bg-[#1A1A1A] hover:border-[#D4A843]/30 transition-all duration-300">
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold text-white mb-1">
+                {dict.pricing.freePlan.name}
+              </h3>
+              <p className="text-gray-400 text-sm mb-6">
+                {dict.pricing.freePlan.description}
+              </p>
+              <div className="flex items-baseline gap-2">
+                <span className="text-5xl font-bold text-white">$0</span>
+              </div>
+              <p className="text-gray-500 text-sm mt-2">{dict.pricing.freePlan.priceNote}</p>
+            </div>
+
+            <Button
+              asChild
+              className="w-full mb-8 font-semibold bg-transparent border-2 border-[#D4A843]/40 text-[#D4A843] hover:bg-[#D4A843] hover:text-[#0D0D0D] transition-all"
             >
-              <Card
-                className={cn(
-                  "relative flex flex-col p-8 rounded-xl transition-all duration-300 h-full",
-                  plan.highlighted
-                    ? "border-[#D4A843] bg-gradient-to-br from-[#1A1A1A] to-[#0D0D0D] ring-2 ring-[#D4A843]/50 md:scale-105 md:z-10 glow-gold"
-                    : "border-[#D4A843]/20 bg-[#1A1A1A] hover:border-[#D4A843]/40 hover:-translate-y-1 hover:glow-gold"
-                )}
-              >
-                {plan.highlighted && (
-                  <Badge className="absolute -top-3 start-8 bg-[#D4A843] text-[#0D0D0D] font-semibold">
-                    {dict.pricing.mostPopular}
-                  </Badge>
-                )}
+              <Link href="/signup">{dict.pricing.freePlan.cta}</Link>
+            </Button>
 
-                {/* Plan Info */}
-                <div className="mb-8">
-                  <h3 className="text-2xl font-bold text-white mb-2">
-                    {plan.name}
-                  </h3>
-                  <p className="text-gray-400 text-sm mb-6">{plan.description}</p>
-
-                  {/* Price */}
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-5xl font-bold text-white">
-                      {getPrice(plan)}
-                    </span>
-                    {plan.monthlyPrice > 0 && (
-                      <span className="text-gray-400">
-                        {isYearly ? dict.pricing.perYear : dict.pricing.perMonth}
-                      </span>
+            <div className="space-y-4 flex-grow">
+              <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-2">
+                {dict.pricing.freePlan.sectionLabel}
+              </p>
+              {dict.pricing.freePlan.features.map((feature, idx) => (
+                <div key={idx} className="flex items-start gap-3">
+                  {feature.included ? (
+                    <Check className="h-5 w-5 text-[#D4A843] flex-shrink-0 mt-0.5" />
+                  ) : (
+                    <X className="h-5 w-5 text-gray-600 flex-shrink-0 mt-0.5" />
+                  )}
+                  <span
+                    className={cn(
+                      "text-sm",
+                      feature.included ? "text-gray-300" : "text-gray-600"
                     )}
-                  </div>
-
-                  {getSavings(plan) && (
-                    <p className="text-[#D4A843] text-sm mt-2 font-medium">
-                      {dict.pricing.savingsTemplate.replace(
-                        "{{amount}}",
-                        String(getSavings(plan))
-                      )}
-                    </p>
-                  )}
+                  >
+                    {feature.text}
+                  </span>
                 </div>
+              ))}
+            </div>
+          </Card>
 
-                {/* CTA Button */}
-                <Button
-                  asChild
-                  className={cn(
-                    "w-full mb-8 font-semibold transition-all hover:scale-105 active:scale-95",
-                    plan.highlighted
-                      ? "bg-[#D4A843] hover:bg-[#E5B955] text-[#0D0D0D]"
-                      : "bg-transparent border-2 border-[#D4A843] text-[#D4A843] hover:bg-[#D4A843] hover:text-[#0D0D0D]"
-                  )}
-                >
-                  <a href="#waitlist">{plan.cta}</a>
-                </Button>
+          {/* PRO */}
+          <Card className="relative flex flex-col p-8 rounded-xl border-[#D4A843] bg-gradient-to-br from-[#1A1A1A] to-[#0D0D0D] ring-2 ring-[#D4A843]/50 transition-all duration-300">
+            {/* Badge */}
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+              <div className="flex items-center gap-1.5 bg-[#D4A843] text-[#0D0D0D] font-semibold text-sm px-4 py-1.5 rounded-full shadow-lg shadow-[#D4A843]/20">
+                <Sparkles className="w-4 h-4" />
+                {dict.pricing.proPlan.badge}
+              </div>
+            </div>
 
-                {/* Features */}
-                <div className="space-y-4">
-                  {plan.features.map((feature, featureIdx) => (
-                    <div key={featureIdx} className="flex items-start gap-3">
-                      <Check className="h-5 w-5 text-[#D4A843] flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300 text-sm">{feature}</span>
-                    </div>
-                  ))}
+            <div className="mb-8 mt-2">
+              <h3 className="text-2xl font-bold text-white mb-1">
+                {dict.pricing.proPlan.name}
+              </h3>
+              <p className="text-gray-400 text-sm mb-6">
+                {dict.pricing.proPlan.description}
+              </p>
+              <div className="flex items-baseline gap-2">
+                <span className="text-5xl font-bold text-white">
+                  ${proPrice}
+                </span>
+                <span className="text-gray-400">{period}</span>
+              </div>
+              {monthlySavings ? (
+                <p className="text-[#D4A843] text-sm mt-2 font-medium">
+                  {dict.pricing.proPlan.yearlyNote}
+                </p>
+              ) : (
+                <p className="text-gray-500 text-sm mt-2">
+                  {dict.pricing.proPlan.monthlyNote}
+                </p>
+              )}
+            </div>
+
+            <Button
+              asChild
+              className="w-full mb-8 font-semibold bg-[#D4A843] hover:bg-[#E5B955] text-[#0D0D0D] shadow-lg shadow-[#D4A843]/20 transition-all"
+            >
+              <Link href="/signup">{dict.pricing.proPlan.cta}</Link>
+            </Button>
+
+            <div className="space-y-4 flex-grow">
+              <p className="text-xs text-[#D4A843] uppercase tracking-wider font-semibold mb-2">
+                {dict.pricing.proPlan.sectionLabel}
+              </p>
+              {dict.pricing.proPlan.features.map((feature, idx) => (
+                <div key={idx} className="flex items-start gap-3">
+                  <Check className="h-5 w-5 text-[#D4A843] flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-gray-300">{feature}</span>
                 </div>
-              </Card>
-            </motion.div>
-          ))}
+              ))}
+            </div>
+          </Card>
         </div>
 
-        {/* FAQ Link */}
+        {/* Bottom link */}
         <div className="text-center">
           <p className="text-gray-400 mb-4">
             {dict.pricing.notSure}

@@ -41,7 +41,7 @@ export function WaitlistForm({ dict }: { dict: MarketingDictionary }) {
     <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
       <Input
         type="email"
-        dir="ltr"
+        dir={email ? "ltr" : "auto"}
         placeholder={dict.waitlist.placeholder}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
