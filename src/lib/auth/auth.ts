@@ -26,7 +26,7 @@ function buildAuthConfig(): NextAuthConfig {
       accountsTable: accounts,
       sessionsTable: sessions,
       verificationTokensTable: verificationTokens,
-    }),
+    }) as NextAuthConfig["adapter"],
     providers: [
       GoogleProvider({
         clientId: process.env.GOOGLE_CLIENT_ID,
