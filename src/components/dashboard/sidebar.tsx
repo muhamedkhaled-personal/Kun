@@ -118,9 +118,9 @@ export function DashboardSidebar({ user }: SidebarProps) {
       <div className="p-4 border-t border-slate-800 space-y-4">
         <div className="flex items-center gap-3 px-2">
           <Avatar className="h-10 w-10">
-            <AvatarImage src={user.image || ""} alt={user.name} />
+            <AvatarImage src={user.image || ""} alt={user.name || ""} />
             <AvatarFallback className="bg-amber-600 text-white text-xs font-semibold">
-              {getInitials(user.name)}
+              {getInitials(user.name || "")}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1 min-w-0">
