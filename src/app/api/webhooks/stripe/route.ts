@@ -163,7 +163,7 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
     .update(subscriptions)
     .set({
       plan: planTier || dbSubscription.plan,
-      status: subscription.status,
+      status: subscription.status as typeof subscriptions.$inferInsert.status,
       currentPeriodStart: new Date(subscription.current_period_start * 1000),
       currentPeriodEnd: new Date(subscription.current_period_end * 1000),
     })

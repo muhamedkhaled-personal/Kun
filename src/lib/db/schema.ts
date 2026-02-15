@@ -36,6 +36,7 @@ export const subscriptionStatusEnum = pgEnum("subscription_status", [
   "past_due",
   "trialing",
   "incomplete",
+  "paused",
 ]);
 export const discoveryStatusEnum = pgEnum("discovery_status", [
   "in_progress",
