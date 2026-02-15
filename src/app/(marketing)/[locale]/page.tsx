@@ -1,15 +1,18 @@
+import Link from "next/link";
 import {
   ArrowRight,
-  Clock,
-  HelpCircle,
-  EyeOff,
-  TrendingUp,
-  X,
   Check,
+  X,
+  EyeOff,
+  Clock,
+  TrendingUp,
+  HelpCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PricingSection } from "@/components/marketing/pricing-section";
+import { TypingAnimation } from "@/components/marketing/typing-animation";
+import { ScrollReveal } from "@/components/marketing/scroll-reveal";
 import { DemoChat } from "@/components/marketing/demo-chat";
 import { WaitlistForm } from "@/components/marketing/waitlist-form";
 import { FadeIn } from "@/components/motion/fade-in";
@@ -34,9 +37,9 @@ export async function generateMetadata({
     };
   }
   return {
-    title: "Kun — Your Personal Brand, Strategized by AI",
+    title: "Kun — Don't Just Exist Online. Make an Impact.",
     description:
-      "Transform your expertise into influence. AI-powered personal brand strategy for MENA professionals.",
+      "AI-powered personal brand strategy for professionals. Answer 6 questions, get a complete brand strategy in minutes.",
   };
 }
 
@@ -50,69 +53,57 @@ export default async function LocaleHomePage({
 
   return (
     <div className="bg-[#0D0D0D] min-h-screen">
-      {/* 1. Hero Section */}
+      {/* Hero Section */}
       <section className="pt-32 pb-16 md:pt-44 md:pb-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        {/* Gradient Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#D4A843]/8 via-[#D4A843]/3 to-transparent pointer-events-none" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#D4A843]/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="text-center">
-            {/* Beta Badge */}
-            <FadeIn delay={0.1}>
-              <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-[#D4A843]/30 bg-[#D4A843]/5">
-                <span className="w-2 h-2 rounded-full bg-[#D4A843] animate-pulse" />
-                <p className="text-sm text-[#D4A843] font-medium">
-                  {dict.hero.badge}
-                </p>
-              </div>
-            </FadeIn>
-
-            {/* Headline */}
-            <FadeIn delay={0.25}>
-              <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white mb-6 leading-[1.05] tracking-[-0.02em]">
-                {dict.hero.title}<br />
-                <span className="text-[#D4A843]">{dict.hero.titleHighlight}</span>
-              </h1>
-            </FadeIn>
-
-            {/* Value prop */}
-            <FadeIn delay={0.4}>
-              <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-                {dict.hero.subtitle}
+            <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-[#D4A843]/30 bg-[#D4A843]/5">
+              <span className="w-2 h-2 rounded-full bg-[#D4A843] animate-pulse" />
+              <p className="text-sm text-[#D4A843] font-medium">
+                {dict.hero.badge}
               </p>
-            </FadeIn>
+            </div>
 
-            {/* CTAs */}
-            <FadeIn delay={0.55}>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-                <Button
-                  asChild
-                  className="bg-[#D4A843] hover:bg-[#E5B955] text-[#0D0D0D] font-semibold text-lg px-8 py-6 shadow-lg shadow-[#D4A843]/20"
-                >
-                  <a href="#waitlist">{dict.hero.ctaPrimary}</a>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="border-[#D4A843]/40 text-[#D4A843] hover:bg-[#D4A843]/10 font-medium text-lg px-8 py-6"
-                >
-                  <a href="#demo">{dict.hero.ctaSecondary}</a>
-                </Button>
-              </div>
-            </FadeIn>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white mb-6 leading-[1.05] tracking-[-0.02em]">
+              {dict.hero.title}{" "}
+              <span className="text-[#D4A843]">{dict.hero.titleHighlight}</span>
+            </h1>
 
-            {/* Micro proof */}
-            <FadeIn delay={0.65}>
-              <p className="text-sm text-gray-500">
-                {dict.hero.microProof}
-              </p>
-            </FadeIn>
+            <p className="text-lg md:text-xl text-gray-300 mb-4 max-w-2xl mx-auto leading-relaxed">
+              {dict.hero.subtitle}
+            </p>
+
+            <p className="text-base md:text-lg text-gray-500 mb-10 max-w-xl mx-auto">
+              {dict.hero.typingPrefix} <TypingAnimation words={dict.hero.typingWords} />
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+              <Button
+                asChild
+                className="bg-[#D4A843] hover:bg-[#E5B955] text-[#0D0D0D] font-semibold text-lg px-8 py-6 shadow-lg shadow-[#D4A843]/20"
+              >
+                <a href="#waitlist">{dict.hero.ctaPrimary}</a>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="border-[#D4A843]/40 text-[#D4A843] hover:bg-[#D4A843]/10 font-medium text-lg px-8 py-6"
+              >
+                <a href="#how-it-works">{dict.hero.ctaSecondary}</a>
+              </Button>
+            </div>
+
+            <p className="text-sm text-gray-500">
+              {dict.hero.microProof}
+            </p>
           </div>
         </div>
       </section>
 
-      {/* 2. Problem Section */}
+      {/* Problem Section */}
       <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-transparent via-[#D4A843]/5 to-transparent">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
@@ -123,33 +114,34 @@ export default async function LocaleHomePage({
 
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { icon: EyeOff, pain: dict.problem.pains[0] },
-              { icon: Clock, pain: dict.problem.pains[1] },
-              { icon: TrendingUp, pain: dict.problem.pains[2] },
+              { icon: EyeOff, pain: dict.problem.pains[0], delay: 0 },
+              { icon: Clock, pain: dict.problem.pains[1], delay: 150 },
+              { icon: TrendingUp, pain: dict.problem.pains[2], delay: 300 },
             ].map((item, idx) => {
               const Icon = item.icon;
               return (
-                <Card
-                  key={idx}
-                  className="p-8 border-[#D4A843]/20 bg-[#1A1A1A]/50 text-center"
-                >
-                  <div className="flex justify-center mb-4">
-                    <div className="w-12 h-12 rounded-full bg-[#D4A843]/10 flex items-center justify-center">
-                      <Icon className="w-6 h-6 text-[#D4A843]" />
+                <ScrollReveal key={idx} delay={item.delay}>
+                  <Card className="p-8 border-[#D4A843]/20 bg-[#1A1A1A]/50 text-center h-full">
+                    <div className="flex justify-center mb-4">
+                      <div className="w-12 h-12 rounded-full bg-[#D4A843]/10 flex items-center justify-center">
+                        <Icon className="w-6 h-6 text-[#D4A843]" />
+                      </div>
                     </div>
-                  </div>
-                  <p className="text-gray-300 leading-relaxed">{item.pain}</p>
-                </Card>
+                    <p className="text-gray-300 leading-relaxed">{item.pain}</p>
+                  </Card>
+                </ScrollReveal>
               );
             })}
           </div>
 
-          <p className="text-center text-gray-400 mt-12 text-lg">
-            {dict.problem.bridge}{" "}
-            <span className="text-[#D4A843] font-medium">{dict.problem.bridgeHighlight1}</span>{" "}
-            {dict.problem.bridgeAnd}{" "}
-            <span className="text-[#D4A843] font-medium">{dict.problem.bridgeHighlight2}</span>.
-          </p>
+          <ScrollReveal delay={450}>
+            <p className="text-center text-gray-400 mt-12 text-lg">
+              {dict.problem.bridge}{" "}
+              <span className="text-[#D4A843] font-medium">{dict.problem.bridgeHighlight1}</span>{" "}
+              {dict.problem.bridgeAnd}{" "}
+              <span className="text-[#D4A843] font-medium">{dict.problem.bridgeHighlight2}</span>.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 

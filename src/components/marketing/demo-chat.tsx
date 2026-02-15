@@ -155,7 +155,7 @@ export function DemoChat({ dict }: { dict: MarketingDictionary }) {
     <div className="max-w-2xl mx-auto">
       <div className="relative">
         {/* Start Over — always visible top-end corner */}
-        {currentQuestion >= 0 && (
+        {Object.keys(answers).length > 0 && (
           <button
             onClick={handleStartOver}
             className="absolute top-3 end-3 z-10 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#252525] border border-gray-700 text-gray-400 hover:border-[#D4A843]/40 hover:text-[#D4A843] text-xs font-medium transition-all"

@@ -16,6 +16,8 @@ export interface MarketingDictionary {
     ctaPrimary: string;
     ctaSecondary: string;
     microProof: string;
+    typingPrefix: string;
+    typingWords: string[];
     strategyLabel: string;
     strategyPowered: string;
     strategyItems: { icon: string; label: string }[];

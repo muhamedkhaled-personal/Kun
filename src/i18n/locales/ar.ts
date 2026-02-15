@@ -3,7 +3,6 @@ import type { MarketingDictionary } from "../types";
 const ar: MarketingDictionary = {
   nav: {
     links: [
-      { label: "المميزات", href: "#features" },
       { label: "كيف يعمل", href: "#how-it-works" },
       { label: "الأسعار", href: "#pricing" },
       { label: "تجربة", href: "#demo" },
@@ -23,7 +22,16 @@ const ar: MarketingDictionary = {
       "أفكارك تستحق الانتشار. خبرتك تستحق التقدير. كُن يحوّل من أنت إلى استراتيجية علامة تجارية يمكنك تنفيذها.",
     ctaPrimary: "ابنِ استراتيجية علامتي — مجانًا",
     ctaSecondary: "شاهد كيف يعمل",
-    microProof: "بدون بطاقة ائتمان · يستغرق 10 دقائق · مصمم لمهنيي الشرق الأوسط",
+    microProof: "بدون بطاقة ائتمان · يستغرق 10 دقائق · مصمم للمحترفين",
+    typingPrefix: "كُن يبني لك",
+    typingWords: [
+      "التموضع",
+      "ركائز المحتوى",
+      "دليل الصوت",
+      "خطة المنصات",
+      "أول 5 منشورات",
+      "خارطة 90 يومًا",
+    ],
     strategyLabel: "استراتيجية علامتك من 8 مكونات",
     strategyPowered: "مدعوم بالذكاء الاصطناعي",
     strategyItems: [

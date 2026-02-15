@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Logo } from "@/components/shared/logo";
 import { Button } from "@/components/ui/button";
@@ -46,8 +46,8 @@ export function MarketingNav({
             <Logo variant="full" className="h-8 w-auto" />
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop Navigation — Centered */}
+          <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
             {dict.nav.links.map((link) => (
               <a
                 key={link.href}
@@ -57,11 +57,16 @@ export function MarketingNav({
                 {link.label}
               </a>
             ))}
+          </div>
+
+          {/* Right side — Language + CTA */}
+          <div className="hidden md:flex items-center gap-4">
             <Link
               href={switchLocale}
-              className="text-gray-300 hover:text-[#D4A843] transition-colors text-sm font-medium"
+              className="text-gray-300 hover:text-[#D4A843] transition-colors p-2 rounded-md"
+              title={dict.nav.langLabel}
             >
-              {dict.nav.langLabel}
+              <Globe className="w-5 h-5" />
             </Link>
             <Button
               asChild
@@ -116,9 +121,10 @@ export function MarketingNav({
                   >
                     <Link
                       href={switchLocale}
-                      className="text-gray-300 hover:text-[#D4A843] transition-colors font-medium"
+                      className="flex items-center gap-2 text-gray-300 hover:text-[#D4A843] transition-colors font-medium"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
+                      <Globe className="w-5 h-5" />
                       {dict.nav.langLabel}
                     </Link>
                   </motion.div>

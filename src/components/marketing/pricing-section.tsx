@@ -162,20 +162,6 @@ export function PricingSection({ dict }: { dict: MarketingDictionary }) {
             </div>
           </Card>
         </div>
-
-        {/* Bottom link */}
-        <div className="text-center">
-          <p className="text-gray-400 mb-4">
-            {dict.pricing.notSure}
-          </p>
-          <a
-            href="#faq"
-            className="inline-flex items-center text-[#D4A843] hover:text-[#E5B955] font-medium transition-colors"
-          >
-            {dict.pricing.seeFaq}
-            <span className="ms-2">&rarr;</span>
-          </a>
-        </div>
       </div>
     </section>
   );

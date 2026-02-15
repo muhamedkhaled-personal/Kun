@@ -3,7 +3,6 @@ import type { MarketingDictionary } from "../types";
 const en: MarketingDictionary = {
   nav: {
     links: [
-      { label: "Features", href: "#features" },
       { label: "How it works", href: "#how-it-works" },
       { label: "Pricing", href: "#pricing" },
       { label: "Demo", href: "#demo" },
@@ -23,7 +22,16 @@ const en: MarketingDictionary = {
       "Your ideas deserve reach. Your expertise deserves recognition. Kun turns who you are into a brand strategy you can act on.",
     ctaPrimary: "Build My Brand Strategy — Free",
     ctaSecondary: "See How It Works",
-    microProof: "No credit card needed · Takes 10 minutes · Built for professionals in MENA",
+    microProof: "No credit card needed · Takes 10 minutes · Built for professionals",
+    typingPrefix: "Kun builds your",
+    typingWords: [
+      "positioning",
+      "content pillars",
+      "voice guide",
+      "platform plan",
+      "first 5 posts",
+      "90-day roadmap",
+    ],
     strategyLabel: "Your 8-Component Brand Strategy",
     strategyPowered: "Powered by AI",
     strategyItems: [
