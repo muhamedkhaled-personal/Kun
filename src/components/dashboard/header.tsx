@@ -52,7 +52,7 @@ export function DashboardHeader({ user }: HeaderProps) {
                 <Avatar className="h-10 w-10">
                   <AvatarImage src={user.image || ""} alt={user.name ?? undefined} />
                   <AvatarFallback className="bg-amber-600 text-white text-xs font-semibold">
-                    {getInitials(user.name)}
+                    {getInitials(user.name || "")}
                   </AvatarFallback>
                 </Avatar>
               </Button>
